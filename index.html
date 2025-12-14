@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Waktu Sholat - SMK Gajah Mada Banyuwangi</title>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --school-color: #27ae60;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --border-radius: 12px;
+            --box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px; 
+            color: var(--dark-text);
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        .container { 
+            background-color: #ffffff; 
+            padding: 30px; 
+            border-radius: var(--border-radius); 
+            box-shadow: var(--box-shadow); 
+            max-width: 1200px; 
+            margin: auto; 
+        }
+        
+        /* Header Sekolah */
+        .school-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--school-color);
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            border: 2px solid #ddd;
+        }
+        
+        .school-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .school-logo i {
+            font-size: 2.5em;
+            color: var(--school-color);
+        }
+        
+        .school-title {
+            font-size: 2em;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin: 0;
+        }
+        
+        .school-subtitle {
+            font-size: 1.3em;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin: 5px 0 15px 0;
+        }
+        
+        .project-title {
+            font-size: 1.1em;
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin: 0;
+            padding: 10px;
+            background-color: #e8f4fc;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        h1 { 
+            color: var(--primary-color); 
+            margin-bottom: 10px;
+            font-size: 2.2em;
+        }
+        
+        h2 { 
+            color: var(--accent-color); 
+            border-bottom: 2px solid #eee; 
+            padding-bottom: 8px; 
+            margin-top: 25px; 
+            font-size: 1.5em;
+        }
+        
+        h3 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        
+        .input-section {
+            background-color: #f8f9ff;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+            border: 1px solid #e0e0ff;
+        }
+        
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label { 
+            display: block; 
+            margin-bottom: 8px; 
+            font-weight: 600;
+            color: #555;
+        }
+        
+        input, select { 
+            padding: 12px; 
+            box-sizing: border-box; 
+            border: 1px solid #ced4da; 
+            border-radius: 6px; 
+            width: 100%; 
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        
+        input:focus, select:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+        
+        .btn-calculate { 
+            background: linear-gradient(to right, var(--school-color), #219653); 
+            color: white; 
+            padding: 15px; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            margin-top: 20px; 
+            width: 100%; 
+            font-size: 18px; 
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-calculate:hover { 
+            background: linear-gradient(to right, #219653, #1e874b);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+        }
+        
+        .results-container {
+            margin-top: 30px;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .prayer-time-card {
+            background: linear-gradient(135deg, #e9f5ff 0%, #d6eaff 100%);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            border-left: 5px solid var(--secondary-color);
+            transition: transform 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        
+        .prayer-time-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        
+        .prayer-name {
+            font-weight: 700;
+            font-size: 1.2em;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .prayer-time {
+            font-size: 2em;
+            font-weight: 800;
+            color: var(--accent-color);
+            margin: 15px 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .prayer-details {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+            background-color: rgba(255,255,255,0.7);
+            padding: 8px;
+            border-radius: 4px;
+        }
+        
+        .math-section {
+            margin-top: 40px;
+            padding: 25px;
+            background-color: #f9f9f9;
+            border-radius: var(--border-radius);
+            border: 1px solid #ddd;
+        }
+        
+        .math-intro {
+            background-color: #e8f4fc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .math-intro h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+        
+        .formula-card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+            transition: transform 0.3s;
+        }
+        
+        .formula-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .formula-title {
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2em;
+        }
+        
+        .formula-explanation {
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+        
+        .katex-display { 
+            margin-top: 20px; 
+            margin-bottom: 20px; 
+            background: #fff; 
+            padding: 25px; 
+            border-radius: 8px; 
+            overflow-x: auto;
+            border: 2px solid #e0e0e0;
+            font-size: 1.3em !important;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        /* Perbaikan khusus untuk KaTeX agar lebih jelas */
+        .katex {
+            font-size: 1.4em !important;
+            font-family: "KaTeX_Main", "Times New Roman", serif !important;
+        }
+        
+        .katex-display > .katex {
+            font-size: 1.5em !important;
+        }
+        
+        .katex .mord {
+            color: #2c3e50;
+            font-weight: 500;
+        }
+        
+        .katex .mfrac {
+            border-color: #2c3e50;
+        }
+        
+        .katex .msupsub {
+            font-size: 0.9em;
+        }
+        
+        .formula-variables {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid var(--school-color);
+        }
+        
+        .formula-variables h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 8px;
+        }
+        
+        .variable-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 12px;
+        }
+        
+        .variable-item {
+            padding: 8px 0;
+            border-bottom: 1px dashed #eee;
+        }
+        
+        .variable-item:last-child {
+            border-bottom: none;
+        }
+        
+        .variable-symbol {
+            font-weight: 700;
+            color: var(--accent-color);
+            display: inline-block;
+            min-width: 60px;
+        }
+        
+        .variable-desc {
+            color: #555;
+            margin-left: 10px;
+        }
+        
+        .dalil-section {
+            margin-top: 40px;
+            padding: 25px;
+            background-color: #f0f9ff;
+            border-radius: var(--border-radius);
+            border: 1px solid #cce7ff;
+        }
+        
+        .dalil-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--accent-color);
+            transition: transform 0.3s;
+        }
+        
+        .dalil-card:hover {
+            transform: translateX(5px);
+        }
+        
+        .dalil-title {
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .dalil-text {
+            color: #555;
+            font-style: italic;
+            margin-bottom: 10px;
+            line-height: 1.8;
+            font-size: 1.05em;
+        }
+        
+        .dalil-reference {
+            color: #777;
+            font-size: 0.9em;
+            text-align: right;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #777;
+            font-size: 0.9em;
+        }
+        
+        .highlight {
+            background-color: #fffacd;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        
+        .icon {
+            color: var(--secondary-color);
+        }
+        
+        .current-date {
+            background-color: #e7f3ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--secondary-color);
+            border: 2px solid var(--secondary-color);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .current-date span {
+            background-color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .math-connection {
+            background-color: #fef9e7;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+            border-left: 4px solid #f1c40f;
+        }
+        
+        .math-connection h3 {
+            color: #d35400;
+        }
+        
+        .info-box {
+            background-color: #e8f6f3;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #1abc9c;
+        }
+        
+        .info-box i {
+            color: #1abc9c;
+            margin-right: 10px;
+        }
+        
+        .error-box {
+            background-color: #ffebee;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #f44336;
+            display: none;
+        }
+        
+        .error-box i {
+            color: #f44336;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header Sekolah -->
+    <div class="school-header">
+        <div class="school-logo">
+            <i class="fas fa-school"></i>
+            <div>
+                <h1 class="school-title">SMK GAJAH MADA BANYUWANGI</h1>
+                <div class="school-subtitle">Penerapan Matematika Trigonometri pada Penentuan Waktu Sholat</div>
+                <div class="project-title">Proyek Integrasi Matematika dan Pendidikan Agama Islam</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="current-date">
+        <span><i class="far fa-calendar-alt"></i> Tanggal: <span id="current_date_display"></span></span>
+        <span><i class="fas fa-map-marker-alt"></i> Lokasi: Banyuwangi (-8.2160°, 114.3648°)</span>
+        <span><i class="fas fa-clock"></i> Zona Waktu: WIB (GMT+7)</span>
+    </div>
+
+    <div class="error-box" id="error-box">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span id="error-message"></span>
+    </div>
+
+    <div class="input-section">
+        <h2><i class="fas fa-sliders-h"></i> Parameter Input Perhitungan</h2>
+        <div class="grid-3">
+            <div class="form-group">
+                <label for="date_input"><i class="far fa-calendar"></i> Tanggal:</label>
+                <input type="date" id="date_input" value="2024-06-15">
+            </div>
+            <div class="form-group">
+                <label for="latitude"><i class="fas fa-globe-americas"></i> Lintang (φ):</label>
+                <input type="number" id="latitude" value="-8.2160" step="0.0001" placeholder="Contoh: -8.2160 (Banyuwangi)">
+                <small>Derajat (-90° sampai 90°), negatif = Selatan</small>
+            </div>
+            <div class="form-group">
+                <label for="longitude"><i class="fas fa-globe-asia"></i> Bujur (L):</label>
+                <input type="number" id="longitude" value="114.3648" step="0.0001" placeholder="Contoh: 114.3648 (Banyuwangi)">
+                <small>Derajat (-180° sampai 180°), positif = Timur</small>
+            </div>
+            <div class="form-group">
+                <label for="timezone"><i class="far fa-clock"></i> Zona Waktu (Z):</label>
+                <input type="number" id="timezone" value="7" step="0.5" placeholder="Contoh: 7 (WIB)">
+                <small>GMT offset (jam), WIB = 7, WITA = 8, WIT = 9</small>
+            </div>
+            <div class="form-group">
+                <label for="fajr_angle"><i class="fas fa-sun"></i> Sudut Subuh (α<sub>Fajr</sub>):</label>
+                <input type="number" id="fajr_angle" value="20" step="0.5" placeholder="Contoh: 20° (Kemenag RI)">
+                <small>Derajat di bawah ufuk (standar: 20°)</small>
+            </div>
+            <div class="form-group">
+                <label for="isha_angle"><i class="fas fa-moon"></i> Sudut Isya (α<sub>Isha</sub>):</label>
+                <input type="number" id="isha_angle" value="18" step="0.5" placeholder="Contoh: 18°">
+                <small>Derajat di bawah ufuk (standar: 18°)</small>
+            </div>
+            <div class="form-group">
+                <label for="asr_method"><i class="fas fa-ruler-combined"></i> Metode Ashar:</label>
+                <select id="asr_method">
+                    <option value="1">Syafi'i (1× Bayangan)</option>
+                    <option value="2">Hanafi (2× Bayangan)</option>
+                </select>
+            </div>
+        </div>
+        
+        <button class="btn-calculate" onclick="hitungWaktuSholat()">
+            <i class="fas fa-calculator"></i> Hitung Waktu Sholat dengan Trigonometri
+        </button>
+        
+        <div class="info-box">
+            <i class="fas fa-info-circle"></i>
+            <strong>Catatan:</strong> Koordinat default diatur ke lokasi SMK Gajah Mada Banyuwangi. Anda dapat mengubah nilai sesuai lokasi Anda.
+        </div>
+    </div>
+
+    <div class="results-container">
+        <h2><i class="far fa-clock"></i> Hasil Perhitungan Waktu Sholat</h2>
+        <div class="results-grid" id="results">
+            <!-- Hasil akan diisi oleh JavaScript -->
+        </div>
+    </div>
+
+    <!-- Bagian Keterkaitan Matematika -->
+    <div class="math-connection">
+        <h3><i class="fas fa-link"></i> Keterkaitan Matematika Trigonometri dengan Waktu Sholat</h3>
+        <p>Perhitungan waktu sholat merupakan aplikasi nyata dari <strong>trigonometri bola (spherical trigonometry)</strong> yang mempelajari hubungan antara sudut dan sisi pada permukaan bola. Dalam konteks falak (astronomi syar'i), kita menggunakan:</p>
+        <ul>
+            <li><strong>Fungsi trigonometri</strong> (sinus, cosinus, tangen) untuk menghitung posisi matahari</li>
+            <li><strong>Geometri bola</strong> untuk menentukan sudut waktu (hour angle)</li>
+            <li><strong>Rumus segitiga bola</strong> untuk menghitung deklinasi matahari dan ketinggiannya</li>
+            <li><strong>Koordinat geografis</strong> (lintang dan bujur) sebagai variabel input</li>
+        </ul>
+    </div>
+
+    <div class="math-section">
+        <div class="math-intro">
+            <h3><i class="fas fa-square-root-alt"></i> Rumus Matematika Falak (Trigonometri Bola)</h3>
+            <p>Berikut adalah rumus-rumus trigonometri yang digunakan dalam perhitungan waktu sholat. Semua rumus ini merupakan aplikasi langsung dari matematika trigonometri yang dipelajari di sekolah.</p>
+        </div>
+        
+        <div class="formula-card">
+            <div class="formula-title">
+                <i class="fas fa-sun"></i> 1. Deklinasi Matahari (δ)
+            </div>
+            <div class="formula-explanation">
+                Deklinasi matahari adalah sudut antara garis yang menghubungkan pusat bumi dan pusat matahari dengan bidang ekuator langit. Nilainya bervariasi antara -23.45° hingga +23.45° sepanjang tahun.
+            </div>
+            <div class="katex-display" id="katex-delta"></div>
+            <div class="formula-variables">
+                <h4>Keterangan Variabel:</h4>
+                <div class="variable-list">
+                    <div class="variable-item">
+                        <span class="variable-symbol">δ</span>
+                        <span class="variable-desc">Deklinasi matahari (variasi: -23.45° sampai +23.45°)</span>
+                    </div>
+                    <div class="variable-item">
+                        <span class="variable-symbol">ε</span>
+                        <span class="variable-desc">Kemiringan ekliptika (23.44°)</span>
+                    </div>
+                    <div class="variable-item">
+                        <span class="variable-symbol">L<sub>Matahari</sub></span>
+                        <span class="variable-desc">Longitudo ekliptika matahari</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="formula-card">
+            <div class="formula-title">
+                <i class="fas fa-angle-double-right"></i> 2. Rumus Waktu Sudut (Hour Angle, t)
+            </div>
+            <div class="formula-explanation">
+                Waktu sudut adalah sudut antara meridian pengamat dan meridian matahari. Rumus ini menggunakan <strong>hukum cosinus</strong> dalam trigonometri bola untuk menghitung sudut berdasarkan ketinggian matahari (α), lintang pengamat (φ), dan deklinasi matahari (δ).
+            </div>
+            <div class="katex-display" id="katex-hour-angle"></div>
+            <div class="formula-variables">
+                <h4>Keterangan Variabel:</h4>
+                <div class="variable-list">
+                    <div class="variable-item">
+                        <span class="variable-symbol">t</span>
+                        <span class="variable-desc">Waktu sudut dalam jam (1 jam = 15° rotasi bumi)</span>
+                    </div>
+                    <div class="variable-item">
+                        <span class="variable-symbol">α</span>
+                        <span class="variable-desc">Ketinggian matahari dalam radian (negatif untuk bawah ufuk)</span>
+                    </div>
+                    <div class="variable-item">
+                        <span class="variable-symbol">φ</span>
+                        <span class="variable-desc">Lintang pengamat dalam radian</span>
+                    </div>
+                    <div class="variable-item">
+                        <span class="variable-symbol">δ</span>
+                        <span class="variable-desc">Deklinasi matahari dalam radian</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="formula-card">
+            <div class="formula-title">
+                <i class="fas fa-clock"></i> 3. Rumus Waktu Sholat (T)
+            </div>
+            <div class="formula-explanation">
+                Waktu sholat dihitung berdasarkan waktu zuhur (tengah hari) yang dikoreksi oleh berbagai faktor termasuk waktu sudut (t), bujur lokasi (L), zona waktu (Z), dan equation of time (E).
+            </div>
+            <div class="katex-display" id="katex-time-final"></div>
+            <div class="formula-variables">
+                <h4>Keterangan Variabel:</h4>
+                <div class="variable-list">
+                    <div class="variable-item">
+                        <span class="variable-symbol">T</span>
+                        <span class="variable-desc">Waktu sholat dalam format desimal jam</span>
+                    </div>
+                    <div class="variable-item">
+                        <span class="variable-symbol">Z</span>
+                        <span class="variable-desc">Zona waktu (GMT offset dalam jam)</span>
+                    </div>
+                    <div class="variable-item">
+                        <span class="variable-symbol">L</span>
+                        <span class="variable-desc">Bujur lokasi dalam derajat</span>
+                    </div>
+                    <div class="variable-item">
+                        <span class="variable-symbol">E</span>
+                        <span class="variable-desc">Equation of time (koreksi jam)</span>
+                    </div>
+                    <div class="variable-item">
+                        <span class="variable-symbol">t</span>
+                        <span class="variable-desc">Waktu sudut dalam jam</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="formula-card">
+            <div class="formula-title">
+                <i class="fas fa-ruler-combined"></i> 4. Rumus Ashar (Bayangan n kali)
+            </div>
+            <div class="formula-explanation">
+                Waktu ashar ditentukan ketika panjang bayangan suatu benda sama dengan tinggi benda ditambah panjang bayangan saat zuhur. Rumus ini menggunakan fungsi trigonometri <strong>tangens</strong> dan <strong>kotangens</strong>.
+            </div>
+            <div class="katex-display" id="katex-asr"></div>
+            <div class="formula-variables">
+                <h4>Keterangan Variabel:</h4>
+                <div class="variable-list">
+                    <div class="variable-item">
+                        <span class="variable-symbol">α<sub>Asr</sub></span>
+                        <span class="variable-desc">Ketinggian matahari saat waktu ashar</span>
+                    </div>
+                    <div class="variable-item">
+                        <span class="variable-symbol">n</span>
+                        <span class="variable-desc">Faktor bayangan (1 untuk Syafi'i, 2 untuk Hanafi)</span>
+                    </div>
+                    <div class="variable-item">
+                        <span class="variable-symbol">φ</span>
+                        <span class="variable-desc">Lintang pengamat dalam radian</span>
+                    </div>
+                    <div class="variable-item">
+                        <span class="variable-symbol">δ</span>
+                        <span class="variable-desc">Deklinasi matahari dalam radian</span>
+                    </div>
+                    <div class="variable-item">
+                        <span class="variable-symbol">arccot</span>
+                        <span class="variable-desc">Invers fungsi kotangen</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dalil-section">
+        <h2><i class="fas fa-book-quran"></i> Dasar Dalil Waktu Sholat (Pendidikan Agama Islam)</h2>
+        
+        <div class="dalil-card">
+            <div class="dalil-title">
+                <i class="fas fa-sunrise"></i> Waktu Subuh (Fajr)
+            </div>
+            <div class="dalil-text">
+                "Makan dan minumlah hingga terang bagimu benang putih dari benang hitam, yaitu fajar." (QS. Al-Baqarah: 187)
+            </div>
+            <div class="dalil-reference">Dalil: Fajar Shadiq (cahaya putih melintang di ufuk) sebagai tanda masuknya waktu Subuh</div>
+        </div>
+        
+        <div class="dalil-card">
+            <div class="dalil-title">
+                <i class="fas fa-sun"></i> Waktu Zuhur (Dhuhr)
+            </div>
+            <div class="dalil-text">
+                "Dirikanlah shalat ketika matahari tergelincir (condong) sampai gelap malam." (QS. Al-Isra': 78)
+            </div>
+            <div class="dalil-reference">Dalil: Matahari tergelincir ke arah barat (zawal) sebagai awal waktu Zuhur</div>
+        </div>
+        
+        <div class="dalil-card">
+            <div class="dalil-title">
+                <i class="fas fa-sun"></i> Waktu Ashar (Asr)
+            </div>
+            <div class="dalil-text">
+                "Peliharalah segala shalat(mu), dan (peliharalah) shalat wustha (Ashar)." (QS. Al-Baqarah: 238)
+            </div>
+            <div class="dalil-reference">Dalil: Bayangan suatu benda sama dengan tingginya (Syafi'i) atau dua kali tingginya (Hanafi)</div>
+        </div>
+        
+        <div class="dalil-card">
+            <div class="dalil-title">
+                <i class="fas fa-sunset"></i> Waktu Maghrib
+            </div>
+            <div class="dalil-text">
+                "Kemudian sempurnakanlah puasa sampai malam." (QS. Al-Baqarah: 187)
+            </div>
+            <div class="dalil-reference">Dalil: Matahari terbenam dan mega merah menghilang sebagai awal waktu Maghrib</div>
+        </div>
+        
+        <div class="dalil-card">
+            <div class="dalil-title">
+                <i class="fas fa-moon"></i> Waktu Isya (Isha)
+            </div>
+            <div class="dalil-text">
+                "Dirikanlah shalat dari sesudah matahari tergelincir sampai gelap malam dan (dirikanlah pula shalat) Subuh." (QS. Al-Isra': 78)
+            </div>
+            <div class="dalil-reference">Dalil: Hilangnya syafaq (cahaya merah) di ufuk barat sebagai awal waktu Isya</div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p><i class="fas fa-graduation-cap"></i> <strong>SMK Gajah Mada Banyuwangi</strong> - Proyek Integrasi Matematika Trigonometri dan Pendidikan Agama Islam</p>
+        <p><i class="fas fa-info-circle"></i> Kalkulator ini menunjukkan penerapan nyata matematika trigonometri dalam kehidupan beragama.</p>
+        <p>© 2025 - Menggabungkan Sains, Matematika, dan Syariat Islam</p>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set tanggal default hari ini
+        const today = new Date();
+        const todayFormatted = today.toISOString().split('T')[0];
+        document.getElementById('date_input').value = todayFormatted;
+        
+        // Tampilkan tanggal sekarang
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('current_date_display').textContent = today.toLocaleDateString('id-ID', options);
+        
+        // Render KaTeX formulas dengan ukuran yang lebih besar dan jelas
+        try {
+            katex.render(
+                `\\displaystyle \\delta = \\arcsin\\left(\\sin(\\epsilon) \\cdot \\sin(L_{\\text{Matahari}})\\right)`,
+                document.getElementById('katex-delta'), 
+                { 
+                    displayMode: true,
+                    throwOnError: false,
+                    fontSize: "1.4em",
+                    fleqn: false
+                }
+            );
+
+            katex.render(
+                `\\displaystyle t = \\frac{1}{15} \\arccos\\left(\\frac{-\\sin(\\alpha) - \\sin(\\phi) \\cdot \\sin(\\delta)}{\\cos(\\phi) \\cdot \\cos(\\delta)}\\right)`,
+                document.getElementById('katex-hour-angle'), 
+                { 
+                    displayMode: true,
+                    throwOnError: false,
+                    fontSize: "1.4em"
+                }
+            );
+
+            katex.render(
+                `\\displaystyle T = 12 + Z - \\frac{L}{15} - \\frac{E}{60} \\pm t`,
+                document.getElementById('katex-time-final'), 
+                { 
+                    displayMode: true,
+                    throwOnError: false,
+                    fontSize: "1.4em"
+                }
+            );
+            
+            katex.render(
+                `\\displaystyle \\alpha_{\\text{Asr}} = \\operatorname{arccot}\\left(n + \\tan(|\\phi - \\delta|)\\right)`,
+                document.getElementById('katex-asr'), 
+                { 
+                    displayMode: true,
+                    throwOnError: false,
+                    fontSize: "1.4em"
+                }
+            );
+        } catch (err) {
+            console.error("Error rendering KaTeX:", err);
+        }
+        
+        // Hitung waktu sholat saat pertama kali dimuat
+        hitungWaktuSholat();
+    });
+
+// ---------- SCRIPT JAVASCRIPT: IMPLEMENTASI MATEMATIKA FALAK YANG DIPERBAIKI ----------
+
+// Konstanta Astronomi Dasar
+const DEGREE = Math.PI / 180;
+const OBLIQUITY_ECLIPTIC = toRadians(23.4392911); // Kemiringan Ekliptika (epsilon)
+
+function toRadians(degrees) { return degrees * DEGREE; }
+function toDegrees(radians) { return radians * 180 / Math.PI; }
+
+// Helper untuk format waktu desimal ke HH:MM
+function formatTime(decimalHour) {
+    // Pastikan waktu tidak negatif
+    let hour = decimalHour;
+    
+    // Normalisasi jam ke rentang 0-24
+    while (hour < 0) hour += 24;
+    while (hour >= 24) hour -= 24;
+    
+    const hours = Math.floor(hour);
+    const minutes = Math.round((hour - hours) * 60);
+    
+    // Handle overflow minutes
+    let finalHours = hours;
+    let finalMinutes = minutes;
+    
+    if (finalMinutes >= 60) {
+        finalHours += Math.floor(finalMinutes / 60);
+        finalMinutes = finalMinutes % 60;
+    }
+    
+    // Pastikan jam tetap dalam rentang 0-23
+    finalHours = finalHours % 24;
+    
+    return `${String(finalHours).padStart(2, '0')}:${String(finalMinutes).padStart(2, '0')}`;
+}
+
+// Fungsi untuk menampilkan error
+function showError(message) {
+    document.getElementById('error-message').textContent = message;
+    document.getElementById('error-box').style.display = 'block';
+}
+
+function hideError() {
+    document.getElementById('error-box').style.display = 'none';
+}
+
+// Fungsi untuk membuat card waktu sholat
+function createPrayerTimeCard(name, time, details, icon) {
+    return `
+        <div class="prayer-time-card">
+            <div class="prayer-name">
+                <i class="fas ${icon}"></i> ${name}
+            </div>
+            <div class="prayer-time">${time}</div>
+            <div class="prayer-details">${details}</div>
+        </div>
+    `;
+}
+
+// Fungsi untuk menghitung Julian Day
+function calculateJulianDay(date) {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const hour = date.getHours() + date.getMinutes() / 60;
+    
+    // Konversi ke Julian Day
+    let a = Math.floor((14 - month) / 12);
+    let y = year + 4800 - a;
+    let m = month + 12 * a - 3;
+    
+    let jd = day + Math.floor((153 * m + 2) / 5) + 
+             365 * y + Math.floor(y / 4) - 
+             Math.floor(y / 100) + Math.floor(y / 400) - 32045;
+    
+    // Tambahkan bagian desimal untuk jam
+    jd += (hour - 12) / 24;
+    
+    return jd;
+}
+
+// Fungsi untuk menghitung posisi matahari
+function calculateSunPosition(jd) {
+    // T: Waktu dalam abad Julian sejak J2000.0
+    const T = (jd - 2451545.0) / 36525;
+    
+    // Geometric Mean Longitude of the Sun (L0)
+    let L0 = (280.46646 + 36000.76983 * T + 0.0003032 * T * T) % 360;
+    if (L0 < 0) L0 += 360;
+    
+    // Geometric Mean Anomaly of the Sun (M)
+    let M = (357.52911 + 35999.05029 * T - 0.0001537 * T * T) % 360;
+    if (M < 0) M += 360;
+    
+    // Equation of the center (C)
+    const M_rad = toRadians(M);
+    const C = (1.914602 - 0.004817 * T - 0.000014 * T * T) * Math.sin(M_rad) +
+              (0.019993 - 0.000101 * T) * Math.sin(2 * M_rad) +
+              0.000289 * Math.sin(3 * M_rad);
+    
+    // True Longitude of the Sun (Θ)
+    let theta = L0 + C;
+    
+    // Apparent Longitude of the Sun (λ)
+    const omega = 125.04 - 1934.136 * T;
+    const lambda = theta - 0.00569 - 0.00478 * Math.sin(toRadians(omega));
+    
+    // Obliquity of the ecliptic (ε)
+    const epsilon = 23.43929111 - 0.013004167 * T - 0.00000016389 * T * T;
+    
+    // Right Ascension (α)
+    const epsilon_rad = toRadians(epsilon);
+    const lambda_rad = toRadians(lambda);
+    const alpha = Math.atan2(
+        Math.cos(epsilon_rad) * Math.sin(lambda_rad),
+        Math.cos(lambda_rad)
+    );
+    
+    // Deklinasi Matahari (δ)
+    const delta = Math.asin(Math.sin(epsilon_rad) * Math.sin(lambda_rad));
+    
+    // Equation of Time (E) dalam menit
+    const y = Math.tan(epsilon_rad / 2) * Math.tan(epsilon_rad / 2);
+    const L0_rad = toRadians(L0);
+    const E_minutes = y * Math.sin(2 * L0_rad) - 
+                      2 * Math.sin(M_rad) + 
+                      4 * y * Math.sin(M_rad) * Math.cos(2 * L0_rad) - 
+                      0.5 * y * y * Math.sin(4 * L0_rad) - 
+                      1.25 * Math.sin(2 * M_rad);
+    
+    // Equation of Time dalam jam
+    const E = E_minutes / 60;
+    
+    return {
+        alpha: alpha,      // Right ascension (rad)
+        delta: delta,      // Declination (rad)
+        E: E,              // Equation of time (hours)
+        theta: toRadians(theta),  // True longitude (rad)
+        lambda: lambda_rad // Apparent longitude (rad)
+    };
+}
+
+// Fungsi untuk menghitung waktu sudut (hour angle)
+function calculateHourAngle(phi, delta, alpha) {
+    // alpha adalah ketinggian matahari (radian)
+    // Untuk waktu sholat, alpha negatif untuk di bawah ufuk
+    
+    const cosH = (Math.sin(alpha) - Math.sin(phi) * Math.sin(delta)) / 
+                 (Math.cos(phi) * Math.cos(delta));
+    
+    // Batasi nilai cosH antara -1 dan 1
+    if (cosH > 1) return null;  // Matahari tidak terbit
+    if (cosH < -1) return null; // Matahari tidak terbenam
+    
+    const H = Math.acos(cosH);  // Hour angle dalam radian
+    return H;  // Kembalikan dalam radian
+}
+
+// Fungsi untuk menghitung waktu sholat
+function calculatePrayerTime(dhuhrTime, phi, delta, sunAltitude, isBeforeNoon = false) {
+    const H = calculateHourAngle(phi, delta, sunAltitude);
+    
+    if (H === null) {
+        return null; // Tidak ada waktu sholat (misalnya di daerah kutub)
+    }
+    
+    const hourAngle = toDegrees(H) / 15; // Konversi ke jam
+    
+    if (isBeforeNoon) {
+        return dhuhrTime - hourAngle;
+    } else {
+        return dhuhrTime + hourAngle;
+    }
+}
+
+// Fungsi untuk menghitung waktu ashar
+function calculateAsrTime(dhuhrTime, phi, delta, asrMethod) {
+    // Rumus untuk menghitung ketinggian matahari saat ashar
+    // tan(alpha) = 1 / (n + tan(|phi - delta|))
+    const phiMinusDelta = Math.abs(phi - delta);
+    const n = asrMethod; // 1 untuk Syafi'i, 2 untuk Hanafi
+    
+    const tanPhiMinusDelta = Math.tan(phiMinusDelta);
+    const cotAlpha = n + tanPhiMinusDelta;
+    const alpha = Math.atan(1 / cotAlpha); // Ketinggian matahari saat ashar
+    
+    // Hitung waktu sudut untuk ketinggian ini
+    const H = calculateHourAngle(phi, delta, alpha);
+    
+    if (H === null) {
+        return null;
+    }
+    
+    const hourAngle = toDegrees(H) / 15;
+    return dhuhrTime + hourAngle;
+}
+
+// --- FUNGSI UTAMA KALKULATOR ---
+function hitungWaktuSholat() {
+    hideError();
+    
+    try {
+        // 1. Ambil Input
+        const dateInput = document.getElementById('date_input').value;
+        const date = new Date(dateInput);
+        const lat = parseFloat(document.getElementById('latitude').value);
+        const lng = parseFloat(document.getElementById('longitude').value);
+        const timezone = parseFloat(document.getElementById('timezone').value);
+        const fajrAngleDeg = parseFloat(document.getElementById('fajr_angle').value);
+        const ishaAngleDeg = parseFloat(document.getElementById('isha_angle').value);
+        const asrMethod = parseInt(document.getElementById('asr_method').value);
+        
+        // Validasi input
+        if (isNaN(lat) || lat < -90 || lat > 90) {
+            showError("Lintang harus antara -90° dan 90°");
+            return;
+        }
+        
+        if (isNaN(lng) || lng < -180 || lng > 180) {
+            showError("Bujur harus antara -180° dan 180°");
+            return;
+        }
+        
+        if (isNaN(timezone) || timezone < -12 || timezone > 14) {
+            showError("Zona waktu harus antara -12 dan 14");
+            return;
+        }
+        
+        // Konversi ke radian
+        const phi = toRadians(lat);
+        
+        // Sudut untuk waktu sholat (dalam radian, negatif untuk di bawah ufuk)
+        const FAJR_ANGLE = toRadians(-fajrAngleDeg);
+        const ISHA_ANGLE = toRadians(-ishaAngleDeg);
+        const MAGHRIB_ANGLE = toRadians(-0.8333); // Matahari terbenam dengan refraksi
+        
+        // 2. Hitung Julian Day untuk tengah hari (12:00 waktu lokal)
+        date.setHours(12, 0, 0, 0);
+        const jd = calculateJulianDay(date);
+        
+        // 3. Hitung posisi matahari
+        const sun = calculateSunPosition(jd);
+        const delta = sun.delta; // Deklinasi matahari
+        const E = sun.E;         // Equation of time
+        
+        // 4. Waktu Zuhur (Dhuhr) - Tengah hari sejati
+        const dhuhrTime = 12.0 + timezone - (lng / 15) - E;
+        
+        // 5. Hitung waktu sholat lainnya
+        // Subuh (sebelum zuhur)
+        const fajrTime = calculatePrayerTime(dhuhrTime, phi, delta, FAJR_ANGLE, true);
+        
+        // Maghrib (setelah zuhur)
+        const maghribTime = calculatePrayerTime(dhuhrTime, phi, delta, MAGHRIB_ANGLE, false);
+        
+        // Isya (setelah zuhur)
+        const ishaTime = calculatePrayerTime(dhuhrTime, phi, delta, ISHA_ANGLE, false);
+        
+        // Ashar
+        const asrTime = calculateAsrTime(dhuhrTime, phi, delta, asrMethod);
+        
+        // 6. Validasi dan format hasil
+        let resultsHTML = '';
+        
+        // Subuh
+        if (fajrTime !== null) {
+            resultsHTML += createPrayerTimeCard('Subuh (Fajr)', formatTime(fajrTime), 
+                `Sudut: ${fajrAngleDeg}° di bawah ufuk<br>Trigonometri: α = ${fajrAngleDeg}°`, 'fa-sunrise');
+        } else {
+            resultsHTML += createPrayerTimeCard('Subuh (Fajr)', '--:--', 
+                `Tidak terhitung (matahari tidak terbit)`, 'fa-sunrise');
+        }
+        
+        // Zuhur
+        resultsHTML += createPrayerTimeCard('Zuhur (Dhuhr)', formatTime(dhuhrTime), 
+            'Matahari tepat di zenith (zawal)<br>Rumus: 12 + Z - L/15 - E', 'fa-sun');
+        
+        // Ashar
+        if (asrTime !== null) {
+            resultsHTML += createPrayerTimeCard('Ashar (Asr)', formatTime(asrTime), 
+                `Bayangan ${asrMethod}×<br>Metode ${asrMethod === 1 ? 'Syafi\'i' : 'Hanafi'}<br>Trigonometri: cot(α) = ${asrMethod} + tan(|φ-δ|)`, 'fa-sun');
+        } else {
+            resultsHTML += createPrayerTimeCard('Ashar (Asr)', '--:--', 
+                `Tidak terhitung`, 'fa-sun');
+        }
+        
+        // Maghrib
+        if (maghribTime !== null) {
+            resultsHTML += createPrayerTimeCard('Maghrib', formatTime(maghribTime), 
+                'Matahari terbenam<br>Sudut: -0.833° (refraksi atmosfer)', 'fa-sunset');
+        } else {
+            resultsHTML += createPrayerTimeCard('Maghrib', '--:--', 
+                `Tidak terhitung (matahari tidak terbenam)`, 'fa-sunset');
+        }
+        
+        // Isya
+        if (ishaTime !== null) {
+            resultsHTML += createPrayerTimeCard('Isya (Isha)', formatTime(ishaTime), 
+                `Sudut: ${ishaAngleDeg}° di bawah ufuk<br>Trigonometri: α = ${ishaAngleDeg}°`, 'fa-moon');
+        } else {
+            resultsHTML += createPrayerTimeCard('Isya (Isha)', '--:--', 
+                `Tidak terhitung`, 'fa-moon');
+        }
+        
+        document.getElementById('results').innerHTML = resultsHTML;
+        
+    } catch (error) {
+        showError("Terjadi kesalahan dalam perhitungan: " + error.message);
+        console.error("Error:", error);
+    }
+}
+
+</script>
+
+</body>
+</html>
